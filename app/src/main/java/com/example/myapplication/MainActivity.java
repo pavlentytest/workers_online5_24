@@ -19,11 +19,14 @@ import androidx.work.WorkManager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
 
     private OneTimeWorkRequest workRequest, workRequest2;
+    private PeriodicWorkRequest periodicWorkRequest;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
 
         Data data = new Data.Builder().putInt("key",123123).build();
         Constraints constraints = new Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build();
+
+
+        periodicWorkRequest = new PeriodicWorkRequest.Builder(MyWork.class,15, TimeUnit.MINUTES).build();
 
         workRequest = new OneTimeWorkRequest.Builder(MyWork.class)
                 .setInputData(data)
