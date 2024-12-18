@@ -74,5 +74,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
+
+        // отмена
+        WorkManager.getInstance(this).cancelWorkById(workRequest.getId());
     }
 }
